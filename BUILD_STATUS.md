@@ -14,8 +14,8 @@
 - minimal second-contract consumer
 - deterministic pure-Python reference model
 - 11 deterministic unit tests passing on Python 3.12
-- 34 adversarial main-contract Direct Mode tests plus 4 consumer/source
-  compatibility checks passing with `genlayer-test` 0.29.2 (38 tests in the direct suite)
+- 34 adversarial main-contract Direct Mode tests plus 5 consumer/source
+  compatibility checks passing with `genlayer-test` 0.29.2 (39 tests in the direct suite)
 - GenVM lint and SDK validation passing for both contracts against the cached
   `v0.3.0-rc7` bundle containing the pinned stable-Studionet dependency
 - repository preflight passing
@@ -23,8 +23,8 @@
 - stable Studionet RPC independently verified as chain ID 61999
 - Direct Mode explicitly pinned to GenVM `v0.2.16`, which contains the declared
   stable-Studionet SDK dependency and avoids CI drift to incompatible prereleases
-- A first live deployment attempt returned `invalid_contract`; its address is
-  not treated as a deployment while the source-shape incompatibility is diagnosed.
+- Two live deployment proposals returned `invalid_contract`; their addresses are
+  excluded. The runtime declaration is now first-line as required by the loader.
 - input bounds reject oversize values instead of silently truncating them
 - finalization, release and `is_granted` re-check immutable definitions
 - consumer rejects zero SOLE addresses and malformed hash bindings

@@ -46,3 +46,9 @@ def test_main_contract_event_index_fields_are_declared_in_sorted_order():
         "def __init__(self, actor: Address, reservation_id: u256, /, **blob)",
     ):
         assert marker in main
+
+
+def test_runtime_dependency_is_the_first_line_of_each_contract():
+    marker = '# { "Depends": "py-genlayer:'
+    for path in (Path("contracts/sole.py"), Path("contracts/sole_consumer.py")):
+        assert path.read_text().splitlines()[0].startswith(marker)

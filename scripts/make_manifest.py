@@ -44,8 +44,8 @@ def main() -> int:
         "tests": {
             "deterministic_passed": 11,
             "direct_mode_contract_passed": 34,
-            "consumer_static_passed": 4,
-            "direct_suite_total_passed": 38,
+            "consumer_static_passed": 5,
+            "direct_suite_total_passed": 39,
             "direct_mode_failed": 0,
         },
         "genvm_lint": {
