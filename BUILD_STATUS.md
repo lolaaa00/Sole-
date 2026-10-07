@@ -21,6 +21,8 @@
 - repository preflight passing
 - CLI 0.39.1 verified
 - stable Studionet RPC independently verified as chain ID 61999
+- Direct Mode explicitly pinned to GenVM `v0.2.16`, which contains the declared
+  stable-Studionet SDK dependency and avoids CI drift to incompatible prereleases
 - input bounds reject oversize values instead of silently truncating them
 - finalization, release and `is_granted` re-check immutable definitions
 - consumer rejects zero SOLE addresses and malformed hash bindings

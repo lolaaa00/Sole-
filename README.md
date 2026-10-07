@@ -223,6 +223,10 @@ python -m pip install -r requirements-test.txt
 pytest -q tests/direct
 ```
 
+The Direct Mode harness is explicitly pinned to GenVM `v0.2.16`; the contract
+dependency itself remains the stable-Studionet `py-genlayer` hash declared in
+each contract header.
+
 Current local result (2026-10-07): 11 deterministic tests, 34 main-contract
 Direct Mode tests, and 3 consumer source/binding checks pass (37 tests in the
 direct suite); GenVM lint/validation passes for both contracts. Live deployment,
