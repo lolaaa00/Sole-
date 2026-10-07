@@ -1,14 +1,14 @@
 {
   "blockers": [
-    "The user-created GitHub repository lolaaa00/sole does not yet exist.",
-    "No contract has been deployed and no lifecycle transaction is claimed."
+    "No valid contract deployment or lifecycle transaction is claimed yet.",
+    "The first deployment proposal returned invalid_contract and is excluded."
   ],
   "chain_id": 61999,
-  "commit_sha": "6e1352fb80e9757f30a7d83eac5e594db0a4de5b",
+  "commit_sha": "dfc0a3949a81e4aef22c94295c46cf832593d943",
   "explorer": "https://explorer-studio.genlayer.com",
   "genlayer_cli": "0.39.1",
   "genvm_lint": {
-    "bundle": "v0.3.0-rc7",
+    "bundle": "v0.2.16",
     "consumer": "passed",
     "sole": "passed"
   },
@@ -17,14 +17,14 @@
   "rpc": "https://studio.genlayer.com/api",
   "source_sha256": {
     "consumer": "7962e12bb9a1ef818ef6eb1aa581a012c278b843ea001b859f700913e4e1a6b7",
-    "sole": "7acc02e63270c1ceb086626d35e25ea2d64b83bdf94acc2d62d77a1fb069fdb5"
+    "sole": "74d106fc5da5c50594bf1749e4b9e3340ca4559c3df2c771d59dcd81936f79b8"
   },
   "status": "predeployment",
   "tests": {
-    "consumer_static_passed": 3,
+    "consumer_static_passed": 4,
     "deterministic_passed": 11,
     "direct_mode_contract_passed": 34,
     "direct_mode_failed": 0,
-    "direct_suite_total_passed": 37
+    "direct_suite_total_passed": 38
   }
 }
