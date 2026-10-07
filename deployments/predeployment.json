@@ -4,7 +4,7 @@
     "No contract has been deployed and no lifecycle transaction is claimed."
   ],
   "chain_id": 61999,
-  "commit_sha": null,
+  "commit_sha": "6f7923241df7cf8e02614fa1aa5f97fc8fb0bb34",
   "explorer": "https://explorer-studio.genlayer.com",
   "genlayer_cli": "0.39.1",
   "genvm_lint": {
