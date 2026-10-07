@@ -44,12 +44,12 @@ def main() -> int:
         "tests": {
             "deterministic_passed": 11,
             "direct_mode_contract_passed": 34,
-            "consumer_static_passed": 3,
-            "direct_suite_total_passed": 37,
+            "consumer_static_passed": 4,
+            "direct_suite_total_passed": 38,
             "direct_mode_failed": 0,
         },
         "genvm_lint": {
-            "bundle": "v0.3.0-rc7",
+            "bundle": "v0.2.16",
             "sole": "passed",
             "consumer": "passed",
         },
@@ -59,8 +59,8 @@ def main() -> int:
     if args.predeployment:
         base["status"] = "predeployment"
         base["blockers"] = [
-            "The user-created GitHub repository lolaaa00/sole does not yet exist.",
-            "No contract has been deployed and no lifecycle transaction is claimed.",
+            "No valid contract deployment or lifecycle transaction is claimed yet.",
+            "The first deployment proposal returned invalid_contract and is excluded.",
         ]
         output = ROOT / "deployments" / "predeployment.json"
     else:

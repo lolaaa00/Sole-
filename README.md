@@ -228,7 +228,7 @@ dependency itself remains the stable-Studionet `py-genlayer` hash declared in
 each contract header.
 
 Current local result (2026-10-07): 11 deterministic tests, 34 main-contract
-Direct Mode tests, and 3 consumer source/binding checks pass (37 tests in the
+Direct Mode tests, and 4 consumer/source compatibility checks pass (38 tests in the
 direct suite); GenVM lint/validation passes for both contracts. Live deployment,
 CI and source-parity evidence remain intentionally unclaimed until the
 user-created `lolaaa00/sole` repository exists and the final source is committed.

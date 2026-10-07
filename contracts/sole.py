@@ -165,31 +165,31 @@ class BookSealed(gl.Event):
     def __init__(self, book_id: u256, definition_hash: str, /, **blob): ...
 
 class BookActivationChanged(gl.Event):
-    def __init__(self, book_id: u256, active: bool, /, **blob): ...
+    def __init__(self, active: bool, book_id: u256, /, **blob): ...
 
 class ReservationProposed(gl.Event):
-    def __init__(self, reservation_id: u256, holder: Address, /, **blob): ...
+    def __init__(self, holder: Address, reservation_id: u256, /, **blob): ...
 
 class ReservationAccepted(gl.Event):
-    def __init__(self, reservation_id: u256, holder: Address, /, **blob): ...
+    def __init__(self, holder: Address, reservation_id: u256, /, **blob): ...
 
 class ReservationAssessed(gl.Event):
     def __init__(self, reservation_id: u256, result: str, /, **blob): ...
 
 class ReservationAssessmentNonDecision(gl.Event):
-    def __init__(self, reservation_id: u256, outcome: str, /, **blob): ...
+    def __init__(self, outcome: str, reservation_id: u256, /, **blob): ...
 
 class ReservationAssessmentExhausted(gl.Event):
-    def __init__(self, reservation_id: u256, attempts: u32, /, **blob): ...
+    def __init__(self, attempts: u32, reservation_id: u256, /, **blob): ...
 
 class ReservationGranted(gl.Event):
-    def __init__(self, reservation_id: u256, holder: Address, /, **blob): ...
+    def __init__(self, holder: Address, reservation_id: u256, /, **blob): ...
 
 class ReservationReleased(gl.Event):
-    def __init__(self, reservation_id: u256, holder: Address, /, **blob): ...
+    def __init__(self, holder: Address, reservation_id: u256, /, **blob): ...
 
 class ReservationWithdrawn(gl.Event):
-    def __init__(self, reservation_id: u256, actor: Address, /, **blob): ...
+    def __init__(self, actor: Address, reservation_id: u256, /, **blob): ...
 
 
 # ---------------------------------------------------------------------------
@@ -694,7 +694,7 @@ class Sole(gl.Contract):
         if int(book.status) != BOOK_SEALED:
             raise gl.vm.UserError(f"{ERR_EXPECTED}: book is not sealed")
         book.active = bool(active)
-        BookActivationChanged(book_id, bool(active)).emit()
+        BookActivationChanged(bool(active), book_id).emit()
 
     # ------------------------------------------------------------------
     # Reservation lifecycle
@@ -788,8 +788,8 @@ class Sole(gl.Contract):
         )
         book.reservation_ids.append(reservation_id)
         ReservationProposed(
-            reservation_id,
             holder,
+            reservation_id,
             book_id=int(book_id),
             reservation_hash=digest,
         ).emit()
@@ -806,7 +806,7 @@ class Sole(gl.Contract):
             raise gl.vm.UserError(f"{ERR_EXPECTED}: reservation definition hash mismatch")
         item.holder_accepted = True
         item.status = u8(RES_ACCEPTED)
-        ReservationAccepted(reservation_id, item.holder).emit()
+        ReservationAccepted(item.holder, reservation_id).emit()
 
     @gl.public.write
     def withdraw_reservation(self, reservation_id: u256) -> None:
@@ -817,7 +817,7 @@ class Sole(gl.Contract):
         if sender not in (str(item.grantor).lower(), str(item.holder).lower()):
             raise gl.vm.UserError(f"{ERR_EXPECTED}: only grantor or holder")
         item.status = u8(RES_WITHDRAWN)
-        ReservationWithdrawn(reservation_id, gl.message.sender_address).emit()
+        ReservationWithdrawn(gl.message.sender_address, reservation_id).emit()
 
     def _observe(
         self,
@@ -1065,13 +1065,13 @@ class Sole(gl.Contract):
         if int(item.consecutive_nondecisions) >= MAX_NONDECISION_ATTEMPTS:
             item.status = u8(RES_ASSESS_EXHAUSTED)
             ReservationAssessmentExhausted(
-                reservation_id,
                 item.consecutive_nondecisions,
+                reservation_id,
             ).emit()
         else:
             ReservationAssessmentNonDecision(
-                reservation_id,
                 str(result.get("outcome", "")),
+                reservation_id,
                 attempt=int(item.consecutive_nondecisions),
             ).emit()
 
@@ -1116,8 +1116,8 @@ class Sole(gl.Contract):
         item.granted_at = u256(message_timestamp())
         book.epoch = u256(int(book.epoch) + 1)
         ReservationGranted(
-            reservation_id,
             item.holder,
+            reservation_id,
             reservation_hash=item.reservation_hash,
             book_epoch=int(book.epoch),
         ).emit()
@@ -1142,8 +1142,8 @@ class Sole(gl.Contract):
         item.released_at = u256(message_timestamp())
         book.epoch = u256(int(book.epoch) + 1)
         ReservationReleased(
-            reservation_id,
             item.holder,
+            reservation_id,
             book_epoch=int(book.epoch),
         ).emit()
 

@@ -34,3 +34,15 @@ def test_consumer_rejects_zero_dependency_and_malformed_hashes():
     assert "sole_address cannot be zero address" in SOURCE
     assert "is_lower_hex_digest(book_hash)" in SOURCE
     assert "is_lower_hex_digest(expected_reservation_hash)" in SOURCE
+
+
+def test_main_contract_event_index_fields_are_declared_in_sorted_order():
+    main = Path("contracts/sole.py").read_text()
+    for marker in (
+        "def __init__(self, active: bool, book_id: u256, /, **blob)",
+        "def __init__(self, holder: Address, reservation_id: u256, /, **blob)",
+        "def __init__(self, outcome: str, reservation_id: u256, /, **blob)",
+        "def __init__(self, attempts: u32, reservation_id: u256, /, **blob)",
+        "def __init__(self, actor: Address, reservation_id: u256, /, **blob)",
+    ):
+        assert marker in main
