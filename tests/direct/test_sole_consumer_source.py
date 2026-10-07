@@ -48,7 +48,14 @@ def test_main_contract_event_index_fields_are_declared_in_sorted_order():
         assert marker in main
 
 
-def test_runtime_dependency_is_the_first_line_of_each_contract():
+def test_runtime_version_and_dependency_are_the_first_two_lines():
     marker = '# { "Depends": "py-genlayer:'
     for path in (Path("contracts/sole.py"), Path("contracts/sole_consumer.py")):
-        assert path.read_text().splitlines()[0].startswith(marker)
+        lines = path.read_text().splitlines()
+        assert lines[0] == "# v0.1.0"
+        assert lines[1].startswith(marker)
+        assert lines[2] == "from genlayer import *"
+
+
+def test_main_contract_stays_below_hosted_loader_size_guard():
+    assert Path("contracts/sole.py").stat().st_size < 44_000

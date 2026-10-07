@@ -1,17 +1,11 @@
+# v0.1.0
 # { "Depends": "py-genlayer:1jb45aa8ynh2a9c9xn3b7qqh8sm5q93hwfp7jqmwsfhh8jpz09h6" }
-# Stable Studionet 61999 contract.
-# Runtime dependency reused from proven 61999-era repositories.
-
 from genlayer import *
 
 import json
 from dataclasses import dataclass
 import typing
 
-
-# ---------------------------------------------------------------------------
-# Protocol constants
-# ---------------------------------------------------------------------------
 
 BOOK_DRAFT = 0
 BOOK_SEALED = 1
@@ -83,10 +77,6 @@ ERR_EXPECTED = "EXPECTED"
 PROTOCOL_VERSION = "SOLE/1"
 
 
-# ---------------------------------------------------------------------------
-# Storage
-# ---------------------------------------------------------------------------
-
 @allow_storage
 @dataclass
 class ExclusivityBook:
@@ -132,10 +122,6 @@ class Reservation:
     released_at: u256
 
 
-# ---------------------------------------------------------------------------
-# Reusable interface
-# ---------------------------------------------------------------------------
-
 @gl.contract_interface
 class ISole:
     class View:
@@ -153,10 +139,6 @@ class ISole:
         def assess_reservation(self, reservation_id: u256) -> None: ...
         def finalize_grant(self, reservation_id: u256) -> None: ...
 
-
-# ---------------------------------------------------------------------------
-# Events
-# ---------------------------------------------------------------------------
 
 class BookCreated(gl.Event):
     def __init__(self, book_id: u256, owner: Address, /, **blob): ...
@@ -191,10 +173,6 @@ class ReservationReleased(gl.Event):
 class ReservationWithdrawn(gl.Event):
     def __init__(self, actor: Address, reservation_id: u256, /, **blob): ...
 
-
-# ---------------------------------------------------------------------------
-# Deterministic helpers
-# ---------------------------------------------------------------------------
 
 def clean_text(value: typing.Any, limit: int) -> str:
     return " ".join(str(value).strip().split())[:limit]
@@ -531,28 +509,7 @@ def comparison_set_digest(
     })
 
 
-# ---------------------------------------------------------------------------
-# Contract
-# ---------------------------------------------------------------------------
-
 class Sole(gl.Contract):
-    """Consensus-backed semantic exclusivity reservation primitive.
-
-    The issuer creates one immutable book per canonical domain_key. Proposed
-    exclusive rights are immutable and require holder acceptance. When a
-    candidate's declared time window overlaps already-granted rights, GenLayer
-    consensus compares the semantic scopes. Deterministic code derives whether
-    the candidate is CLEAR, CONFLICTING, or AMBIGUOUS.
-
-    A book epoch eliminates TOCTOU: every grant/release increments the epoch,
-    invalidating all previously assessed-but-ungranted candidates. The owner
-    must re-assess against the new incumbent set before granting.
-
-    SOLE does not decide legal validity. It prevents this canonical registry
-    from issuing two materially overlapping exclusive reservations inside the
-    same immutable book/domain.
-    """
-
     books: TreeMap[u256, ExclusivityBook]
     reservations: TreeMap[u256, Reservation]
     book_by_owner_domain: TreeMap[str, u256]
@@ -633,10 +590,6 @@ class Sole(gl.Contract):
                 )
         return incumbents
 
-    # ------------------------------------------------------------------
-    # Book lifecycle
-    # ------------------------------------------------------------------
-
     @gl.public.write
     def create_book(
         self,
@@ -695,10 +648,6 @@ class Sole(gl.Contract):
             raise gl.vm.UserError(f"{ERR_EXPECTED}: book is not sealed")
         book.active = bool(active)
         BookActivationChanged(bool(active), book_id).emit()
-
-    # ------------------------------------------------------------------
-    # Reservation lifecycle
-    # ------------------------------------------------------------------
 
     @gl.public.write
     def propose_reservation(
@@ -1146,10 +1095,6 @@ class Sole(gl.Contract):
             reservation_id,
             book_epoch=int(book.epoch),
         ).emit()
-
-    # ------------------------------------------------------------------
-    # Views / composability
-    # ------------------------------------------------------------------
 
     @gl.public.view
     def get_book(self, book_id: u256) -> dict:

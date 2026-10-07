@@ -44,8 +44,8 @@ def main() -> int:
         "tests": {
             "deterministic_passed": 11,
             "direct_mode_contract_passed": 34,
-            "consumer_static_passed": 5,
-            "direct_suite_total_passed": 39,
+            "consumer_static_passed": 6,
+            "direct_suite_total_passed": 40,
             "direct_mode_failed": 0,
         },
         "genvm_lint": {
@@ -60,7 +60,7 @@ def main() -> int:
         base["status"] = "predeployment"
         base["blockers"] = [
             "No valid contract deployment or lifecycle transaction is claimed yet.",
-            "Two deployment proposals returned invalid_contract and are excluded.",
+            "Three deployment proposals returned invalid_contract and are excluded.",
         ]
         output = ROOT / "deployments" / "predeployment.json"
     else:
