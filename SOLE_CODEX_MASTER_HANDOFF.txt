@@ -1,0 +1,349 @@
+SOLE — CODEX MASTER HANDOFF
+Target repository: https://github.com/lolaaa00/sole
+
+GOAL
+Finish SOLE as a reviewer-grade standalone GenLayer Intelligent Contract primitive for semantic exclusivity reservations, prove it live on stable Studionet chain 61999, then push the final repository to lolaaa00/sole.
+
+IMPORTANT: THE USER WILL UNZIP THIS ZIP THEMSELVES AND OPEN THE EXTRACTED `sole` FOLDER IN CODEX.
+Do not spend time creating/extracting the ZIP. Start from the folder already open in Codex.
+
+DO NOT merely review the code, return a plan, or stop at suggestions.
+Run the repository, fix it, harden it, deploy it, execute the lifecycle, collect real evidence, update the docs, and push the final result.
+
+======================================================================
+NON-NEGOTIABLE NETWORK LOCK
+======================================================================
+
+SOLE is for:
+
+- network: stable Studionet
+- chain ID: 61999
+- RPC: https://studio.genlayer.com/api
+- explorer: https://explorer-studio.genlayer.com
+- GenLayer CLI: exactly 0.39.1
+
+DO NOT USE:
+- 61997
+- Studionet-dev
+- Studio Next
+- explorer-studio-dev.genlayer.com
+- CLI 0.40.0 / RC
+- Bradbury
+
+Do not "upgrade" the repo to another network/runtime family just because a local global tool is newer.
+
+Run:
+    python scripts/check_cli.py
+    python scripts/verify_studionet.py
+
+before any deployment.
+
+======================================================================
+PRODUCT SCOPE
+======================================================================
+
+SOLE is a standalone Intelligent Contract submission.
+
+IT MUST NOT HAVE A FRONTEND.
+
+Do not add:
+- Next.js
+- React
+- Vite
+- dashboard
+- landing page
+- wallet UI
+- backend server
+- database authority
+- Docker
+
+The deliverable is:
+1. the SOLE primitive,
+2. the tiny `SoleConsumer` IC proving reuse,
+3. tests/docs/evidence.
+
+Do not turn it into a Project.
+
+======================================================================
+CORE MECHANISM THAT MUST SURVIVE
+======================================================================
+
+SOLE prevents a canonical issuer book from granting two materially overlapping exclusive rights merely because their natural-language scopes are worded differently.
+
+A reservation has:
+- immutable issuer/book binding,
+- immutable holder,
+- right scope,
+- product scope,
+- territory,
+- channel,
+- audience,
+- [start_at,end_at) interval.
+
+Time overlap is deterministic.
+
+For each time-overlapping incumbent, GenLayer consensus classifies five semantic dimensions using only:
+- EQUIVALENT
+- CONTAINS
+- CONTAINED_BY
+- OVERLAPS
+- DISJOINT
+- AMBIGUOUS
+
+The contract derives:
+
+    if ANY dimension == DISJOINT:
+        pair = CLEAR
+    elif ANY dimension == AMBIGUOUS:
+        pair = AMBIGUOUS
+    else:
+        pair = CONFLICT
+
+Overall:
+- any conflict -> BLOCKED
+- otherwise any ambiguity -> AMBIGUOUS
+- otherwise -> READY
+
+The LLM must NEVER directly output "grant", "deny", "winner", "legal", or "safe".
+
+Other invariants:
+- holder must accept exact immutable reservation;
+- one canonical book per `(owner, domain_key)` inside this deployment;
+- model/infra failure is an explicit retryable non-decision, never CLEAR;
+- granting/releasing increments `book.epoch`;
+- final grant requires assessment epoch == current epoch and exact comparison-set hash;
+- issuer cannot revoke a granted right;
+- only holder may release;
+- book pause must not erase existing grants;
+- consumer binds exact SOLE address/book/hash/holder/reservation hash;
+- replay must fail.
+
+Do not weaken these to simplify live testing.
+
+======================================================================
+READ FIRST
+======================================================================
+
+Read fully before editing:
+
+- README.md
+- SUBMISSION.md
+- BUILD_STATUS.md
+- NETWORK_LOCK.json
+- contracts/sole.py
+- contracts/sole_consumer.py
+- reference/sole_model.py
+- tests/direct/test_sole.py
+- tests/unit/test_sole_model.py
+- docs/ARCHITECTURE.md
+- docs/SECURITY_MODEL.md
+- docs/LIVE_TEST_PLAN.md
+- docs/DEPLOYMENT.md
+- scripts/preflight.py
+
+======================================================================
+EXECUTION ORDER
+======================================================================
+
+1. Confirm the repo is frontend-free.
+
+2. Run:
+       python -m unittest discover -s tests/unit -p 'test_*.py'
+       python scripts/preflight.py
+
+3. Create an isolated Python environment if useful.
+
+4. Install the pinned Direct Mode dependency:
+       python -m pip install -r requirements-test.txt
+
+5. Run:
+       pytest -q tests/direct
+
+6. Fix every actual failure.
+   - Preserve the 61999 network lock.
+   - Preserve the semantic/deterministic boundary.
+   - Add adversarial tests for every bug found.
+   - Do not paper over validator disagreement by weakening validation without a principled reason.
+
+7. Inspect the current stable-Studionet contract syntax/runtime.
+   The ZIP intentionally uses the same proven 61999-era dependency family as recent repositories.
+   If stable 61999 requires a source-compatible fix, make it narrowly and document it.
+   Do not migrate to 61997.
+
+8. Run:
+       python scripts/check_cli.py
+   It must report exactly 0.39.1.
+
+9. Run:
+       python scripts/verify_studionet.py
+   It must report 61999.
+
+10. Confirm the deployer account and sufficient balance.
+    Never print or commit a private key.
+
+11. Deploy `contracts/sole.py` to stable Studionet and wait for FINALIZATION.
+
+12. Verify its schema against source.
+
+13. Execute the complete `docs/LIVE_TEST_PLAN.md`.
+    Mandatory live cases include:
+    - first deterministic grant,
+    - semantic conflict blocked,
+    - clearly disjoint right clear,
+    - stale-epoch race rejection,
+    - reassessment after epoch change,
+    - holder-only release,
+    - pause semantics.
+
+14. Create/seal the canonical demo book and record exact book id/hash.
+
+15. Deploy `contracts/sole_consumer.py` using:
+    - finalized SOLE address,
+    - exact book id,
+    - exact book hash.
+
+16. Execute consumer cases:
+    - holder succeeds once,
+    - non-holder fails,
+    - wrong hash fails,
+    - replay fails,
+    - released grant fails.
+
+17. Save ONLY real evidence to:
+       deployments/studionet.json
+
+    Include:
+    - chain id
+    - RPC
+    - CLI version
+    - final commit SHA
+    - SHA-256 of both deployed source files
+    - deployed addresses
+    - deployment tx hashes
+    - lifecycle tx hashes
+    - explorer links
+    - final states/readbacks
+    - Direct Mode test count
+
+18. Update:
+    - BUILD_STATUS.md
+    - README.md only where factual live status is needed
+    - SUBMISSION.md with concise final submission notes
+    - docs if a real runtime quirk was discovered
+
+19. Run:
+       python scripts/preflight.py --final
+
+    Do not proceed until it passes.
+
+20. Ensure no secret/private key/log file is tracked.
+
+21. The target repository may not exist yet. Once Lola has created:
+       https://github.com/lolaaa00/sole
+
+    initialise/use git in THIS extracted folder and push the finished main branch there.
+
+    Do NOT push to ometere123.
+    Do NOT create a substitute repository under another owner.
+    Do NOT rewrite unrelated work if the target repo acquired content after this ZIP was made; inspect first and reconcile safely.
+
+======================================================================
+GITHUB CHECKPOINTS
+======================================================================
+
+Once the target repo exists, use meaningful checkpoints rather than one giant final commit.
+
+Suggested checkpoints:
+
+CP1  baseline imported + local tests green
+CP2  Direct Mode hardening green
+CP3  final contract/security audit
+CP4  61999 core deployment finalized
+CP5  live lifecycle evidence complete
+CP6  consumer deployment/lifecycle complete
+CP7  final preflight + reviewer docs
+
+Push after each defensible checkpoint if the repository is available.
+
+======================================================================
+ADVERSARIAL CASES TO ADD IF MISSING
+======================================================================
+
+Before declaring final, ensure coverage exists for at least:
+
+- malformed leader wrapper rejected;
+- malformed model JSON -> non-decision;
+- model exception -> non-decision;
+- missing incumbent id rejected;
+- duplicate incumbent id rejected;
+- extra fabricated incumbent id rejected;
+- leader/follower pair-outcome disagreement rejected;
+- explanatory relation disagreement accepted only if state consequence is identical;
+- one DISJOINT dimension clears a pair;
+- ambiguity fails closed if no dimension is DISJOINT;
+- boundary-touching time windows do not overlap;
+- overlapping time windows do;
+- wrong holder cannot accept;
+- wrong actor cannot release;
+- issuer cannot revoke granted exclusivity;
+- stale epoch cannot finalize;
+- comparison-set hash mismatch cannot finalize;
+- release increments epoch;
+- pause blocks new work but does not erase a grant;
+- wrong book hash fails consumer;
+- wrong reservation hash fails consumer;
+- non-holder consumer call fails;
+- replay fails;
+- released reservation is not granted.
+
+Add more where the actual implementation demands it.
+
+======================================================================
+REVIEWER-FACING STORY
+======================================================================
+
+The README/submission must lead with the primitive, not with "AI".
+
+A strong first line is:
+
+"SOLE prevents one canonical issuer from granting materially overlapping exclusive rights merely because the rights were phrased differently."
+
+Then show:
+
+Existing:
+    Product X / West Africa / online / Jan-Jun
+
+Candidate:
+    Product X Pro / Nigeria / e-commerce / Mar-May
+
+GenLayer:
+    bounded semantic scope relations
+
+Contract:
+    CLEAR / AMBIGUOUS / CONFLICT
+
+Epoch:
+    stops stale clearances from racing a later grant
+
+Do not market it as legal advice.
+Do not claim SOLE discovers undisclosed/off-chain grants.
+Do not say the LLM grants rights.
+
+======================================================================
+HONESTY RULE
+======================================================================
+
+Never fabricate:
+- test counts,
+- deployment addresses,
+- transaction hashes,
+- finalization,
+- consensus success,
+- explorer links,
+- balances,
+- live lifecycle completion.
+
+If stable 61999 or funding blocks a step, stop at the exact blocker, leave the evidence files honest, push the best truthful state if appropriate, and report the precise blocker.
+
+The objective is not to "look finished".
+The objective is to be reviewer-defensible.

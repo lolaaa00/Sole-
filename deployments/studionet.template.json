@@ -1,0 +1,19 @@
+{
+  "network": "studionet",
+  "chain_id": 61999,
+  "rpc": "https://studio.genlayer.com/api",
+  "genlayer_cli": "0.39.1",
+  "commit_sha": "",
+  "sole_source_sha256": "",
+  "consumer_source_sha256": "",
+  "sole_address": "",
+  "consumer_address": "",
+  "deployment_transactions": [],
+  "lifecycle_transactions": [],
+  "direct_mode": {
+    "command": "pytest -q tests/direct",
+    "passed": null,
+    "failed": null
+  },
+  "notes": "Copy this file to deployments/studionet.json only after real 61999 execution. Never invent values."
+}

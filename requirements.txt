@@ -1,0 +1,2 @@
+# SOLE has no off-chain runtime dependency.
+# The Intelligent Contracts declare the GenLayer runtime dependency inline.

@@ -1,0 +1,2 @@
+# Direct Mode stack matching the stable 61999-era repository family.
+genlayer-test @ git+https://github.com/genlayerlabs/genlayer-testing-suite@v0.29.2

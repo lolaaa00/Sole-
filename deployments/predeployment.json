@@ -1,0 +1,30 @@
+{
+  "blockers": [
+    "The user-created GitHub repository lolaaa00/sole does not yet exist.",
+    "No contract has been deployed and no lifecycle transaction is claimed."
+  ],
+  "chain_id": 61999,
+  "commit_sha": null,
+  "explorer": "https://explorer-studio.genlayer.com",
+  "genlayer_cli": "0.39.1",
+  "genvm_lint": {
+    "bundle": "v0.3.0-rc7",
+    "consumer": "passed",
+    "sole": "passed"
+  },
+  "network": "studionet",
+  "preflight": "passed",
+  "rpc": "https://studio.genlayer.com/api",
+  "source_sha256": {
+    "consumer": "7962e12bb9a1ef818ef6eb1aa581a012c278b843ea001b859f700913e4e1a6b7",
+    "sole": "7acc02e63270c1ceb086626d35e25ea2d64b83bdf94acc2d62d77a1fb069fdb5"
+  },
+  "status": "predeployment",
+  "tests": {
+    "consumer_static_passed": 3,
+    "deterministic_passed": 11,
+    "direct_mode_contract_passed": 34,
+    "direct_mode_failed": 0,
+    "direct_suite_total_passed": 37
+  }
+}
