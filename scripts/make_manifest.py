@@ -60,7 +60,7 @@ def main() -> int:
         base["status"] = "predeployment"
         base["blockers"] = [
             "No valid contract deployment or lifecycle transaction is claimed yet.",
-            "The first deployment proposal returned invalid_contract and is excluded.",
+            "Two deployment proposals returned invalid_contract and are excluded.",
         ]
         output = ROOT / "deployments" / "predeployment.json"
     else:

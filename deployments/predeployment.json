@@ -1,10 +1,10 @@
 {
   "blockers": [
     "No valid contract deployment or lifecycle transaction is claimed yet.",
-    "The first deployment proposal returned invalid_contract and is excluded."
+    "Two deployment proposals returned invalid_contract and are excluded."
   ],
   "chain_id": 61999,
-  "commit_sha": "dfc0a3949a81e4aef22c94295c46cf832593d943",
+  "commit_sha": "879333cf88eab9278903d06e2083d99333c1c9ec",
   "explorer": "https://explorer-studio.genlayer.com",
   "genlayer_cli": "0.39.1",
   "genvm_lint": {
@@ -16,15 +16,15 @@
   "preflight": "passed",
   "rpc": "https://studio.genlayer.com/api",
   "source_sha256": {
-    "consumer": "7962e12bb9a1ef818ef6eb1aa581a012c278b843ea001b859f700913e4e1a6b7",
-    "sole": "74d106fc5da5c50594bf1749e4b9e3340ca4559c3df2c771d59dcd81936f79b8"
+    "consumer": "81536d2cdce4809f83127a59756cacdc607c17c83e1df78a09f1dfd60960f419",
+    "sole": "2d804f1d339e5fa7e86b3f6d9dedef1bfed192e6af91a283a65d40322c0f0bc1"
   },
   "status": "predeployment",
   "tests": {
-    "consumer_static_passed": 4,
+    "consumer_static_passed": 5,
     "deterministic_passed": 11,
     "direct_mode_contract_passed": 34,
     "direct_mode_failed": 0,
-    "direct_suite_total_passed": 38
+    "direct_suite_total_passed": 39
   }
 }
