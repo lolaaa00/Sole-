@@ -227,10 +227,8 @@ The Direct Mode harness is explicitly pinned to GenVM `v0.2.16`; the contract
 dependency itself remains the stable-Studionet `py-genlayer` hash declared in
 each contract header.
 
-Current local result (2026-10-07): 11 deterministic tests, 34 main-contract
-Direct Mode tests, and 6 consumer/source compatibility checks pass (40 tests in the
-direct suite); GenVM lint/validation passes for both contracts. Live deployment,
-CI and source-parity evidence remain intentionally unclaimed until the
-user-created `lolaaa00/sole` repository exists and the final source is committed.
-
-Live deployment must not be claimed until it has actually been executed and finalized on 61999. See `BUILD_STATUS.md`.
+Submission result (2026-10-07): 11 deterministic tests and 40 Direct Mode/source
+compatibility tests pass; GenVM lint/validation passes for both contracts. SOLE
+and SoleConsumer are finalized on stable Studionet 61999, their deployed sources
+exactly match this repository after newline normalization, and the complete
+multi-account lifecycle is recorded in `deployments/studionet.json`.

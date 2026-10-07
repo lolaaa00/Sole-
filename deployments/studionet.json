@@ -1,0 +1,44 @@
+{
+  "network": "studionet",
+  "chain_id": 61999,
+  "rpc": "https://studio.genlayer.com/api",
+  "explorer": "https://explorer-studio.genlayer.com",
+  "genlayer_cli": "0.39.1",
+  "repository": "https://github.com/lolaaa00/Sole-.git",
+  "source_commit_sha": "d7b85e1fd5ef1b0dbe365c87f15ac41e26bcd069",
+  "ci": {"run_id": 37667620785, "url": "https://github.com/lolaaa00/Sole-/actions/runs/37667620785", "conclusion": "success"},
+  "deployer": "0xE36AEeC44999a1C347782b4459BEdd98329B9147",
+  "holder": "0x7099f2F0d13A9e0C208A9E140f681334cc3D6B89",
+  "sole_address": "0xc3eDFC2624498Df0539dc1c05926981Cb57bE614",
+  "sole_deployment_tx": "0xd60ea6d8bb006c2b49a14dd91381b3b03adfcdbc723f69906d6da2b6dbcb2569",
+  "consumer_address": "0xd3F89786CC5af4b82AdBeDa3b02307565a47427A",
+  "consumer_deployment_tx": "0xdc6f1971eaf3fd6442ef53767322e4bba8f2f00ea9ff9899f7a0ec39a95f5586",
+  "book_id": 1,
+  "book_hash": "580db256cea77b0aa1c5b9659f25b2130acbd05ce960835437147fe0845d4bc4",
+  "reservation_id": 2,
+  "reservation_hash": "14cd8d36041bee553e728f1310c608350ac29988833c93dbcbf90b830e5948a2",
+  "source_parity": {
+    "normalized_exact_match": true,
+    "sole_sha256_local_and_chain": "c14c8a8b37ff48cb16fe63f170991db9a0b6ff6e004efcd272d664ace2c8d47d",
+    "consumer_sha256_local_and_chain": "133a02949945a1da4901a472ffb2c963a8d78d26fc5872b19073bd0a28584de9"
+  },
+  "lifecycle_transactions": [
+    {"step": "create_book", "tx_hash": "0x40281f12a5f975770deb77c99685538e55aa8e8dacfed24a283a8b1991462d2d", "status": "FINALIZED", "execution": "SUCCESS"},
+    {"step": "seal_book", "tx_hash": "0x41aadbbc2b48bc777661888eacf7d1e72c99ca903ed18b52fd5c23c3ea5114f6", "status": "FINALIZED", "execution": "SUCCESS"},
+    {"step": "propose_reservation", "tx_hash": "0x0e17c3e77342377bb90a3ab32195ae2a3bd24dc0623dbdf582baaa45b9b9d0b6", "status": "FINALIZED", "execution": "SUCCESS"},
+    {"step": "holder_accept", "tx_hash": "0x86a503cedb978ebcb367719b61fc9649fe5cf2bc2ab66f69103b665f1ee2977b", "status": "FINALIZED", "execution": "SUCCESS"},
+    {"step": "assess_clear", "tx_hash": "0xd2b48121724a9a8ac0d6c460ca02d3ea6c77cd26f67affb872afe2744ec935a6", "status": "FINALIZED", "execution": "SUCCESS", "result": "READY"},
+    {"step": "finalize_grant", "tx_hash": "0x415cfcc78d880e998aaeb5e97b7fc3625cb343ab7e5b63dad1ef8697ae5c9c14", "status": "FINALIZED", "execution": "SUCCESS"},
+    {"step": "consumer_activate", "tx_hash": "0xf5d45e23de52f66e52eed85bccef2ce689ebafa07d54dbf3e6c86bd36ed379d4", "status": "FINALIZED", "execution": "SUCCESS", "was_activated": true, "activation_count": 1},
+    {"step": "holder_release", "tx_hash": "0x6f842207466dd977ee107f1add0fb10efa47d0684e5ef313e702cc1a8f26dc06", "status": "FINALIZED", "execution": "SUCCESS", "is_granted_after": false}
+  ],
+  "negative_transactions": [
+    {"step": "non_holder_release_rejected", "tx_hash": "0x4fdbffbcb9113eeef62fea31c0c96daa1360627381df7beb09490a9481d758cd", "status": "FINALIZED", "execution": "EXPECTED_ERROR", "error": "EXPECTED: only holder may release exclusivity"},
+    {"step": "unrelated_withdraw_rejected", "tx_hash": "0xb05c6673e89e3148707cba0cc04a8f13d53d794f8305ab28f16ced85b9866c92", "status": "FINALIZED", "execution": "EXPECTED_ERROR", "error": "EXPECTED: only grantor or holder"}
+  ],
+  "excluded_invalid_deployment_transactions": [
+    "0x9bce33a93ff1a7ef2755b6cdddff1ed1535598bb7bc1d82acfde5c5bd3b66c54",
+    "0x848c1a7ab057221f79330df45418135353ff7d6d5890b5c2d2b754b44e9e8323",
+    "0x80370fdf2485317d76f824254020c9dd82f6342b3bb5976d08a58edcdf3bdec5"
+  ]
+}

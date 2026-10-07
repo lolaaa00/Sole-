@@ -59,3 +59,14 @@ SOLE's claim is narrower: **inside a canonical SOLE book, two materially overlap
 ## Required network
 
 Studionet **61999** only, RPC `https://studio.genlayer.com/api`, GenLayer CLI **0.39.1**.
+
+## Live evidence
+
+- SOLE: `0xc3eDFC2624498Df0539dc1c05926981Cb57bE614`
+- SoleConsumer: `0xd3F89786CC5af4b82AdBeDa3b02307565a47427A`
+- immutable book `1`: `580db256cea77b0aa1c5b9659f25b2130acbd05ce960835437147fe0845d4bc4`
+- reservation `2`: `14cd8d36041bee553e728f1310c608350ac29988833c93dbcbf90b830e5948a2`
+- green deployed-source CI: `https://github.com/lolaaa00/Sole-/actions/runs/37667620785`
+
+The finalized transaction trail, negative authorization checks, and exact
+deployed-source hashes are in `deployments/studionet.json`.

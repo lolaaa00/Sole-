@@ -37,24 +37,17 @@
 - reviewer-facing submission draft
 - Codex master handoff
 
-## Intentionally not claimed
+## Live Studionet verification
 
-This working tree does **not** claim:
+- SOLE: `0xc3eDFC2624498Df0539dc1c05926981Cb57bE614`
+- SoleConsumer: `0xd3F89786CC5af4b82AdBeDa3b02307565a47427A`
+- both deployments finalized with successful execution on chain 61999
+- exact normalized deployed-source parity proved for both contracts
+- distinct grantor and holder accounts exercised
+- create, seal, propose, accept, assess READY, grant, consumer activation,
+  holder release, and post-release revocation finalized successfully
+- unauthorized release and unrelated withdrawal produced the expected errors
+- deployed-source CI run `37667620785` passed
 
-- a live deployment
-- a 61999 contract address
-- a live transaction hash
-- a complete 61999 lifecycle proof
-- a git commit or CI run; `lolaaa00/sole` did not exist when last checked
-
-Those must be produced by the finishing agent from the extracted repository and recorded honestly.
-
-## Required final state before submission
-
-1. The user creates `lolaaa00/sole`; this exact folder is initialized and
-   checkpointed there.
-2. Core and consumer are freshly deployed from the final committed source.
-3. Lifecycle cases in `docs/LIVE_TEST_PLAN.md` are executed and finalized.
-4. `deployments/studionet.json` contains only real addresses/tx hashes.
-5. `python scripts/preflight.py --final` passes.
-6. GitHub Actions is green on the final pushed commit.
+Full evidence is in `deployments/studionet.json` and
+`deployments/final_manifest.json`.

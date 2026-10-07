@@ -139,8 +139,22 @@ def main() -> int:
         for key in ("sole_address", "consumer_address"):
             if not addr.match(str(data.get(key, ""))):
                 fail(f"deployment evidence missing valid {key}")
-        if not data.get("lifecycle_transactions"):
+        transactions = data.get("lifecycle_transactions", [])
+        if not transactions:
             fail("final deployment evidence has no lifecycle transactions")
+        required_steps = {
+            "create_book", "seal_book", "propose_reservation", "holder_accept",
+            "assess_clear", "finalize_grant", "consumer_activate", "holder_release",
+        }
+        steps = {item.get("step") for item in transactions}
+        if not required_steps.issubset(steps):
+            fail("final deployment evidence is missing lifecycle steps")
+        for item in transactions:
+            if item.get("status") != "FINALIZED" or item.get("execution") != "SUCCESS":
+                fail(f"lifecycle step is not a finalized success: {item.get('step')}")
+        parity = data.get("source_parity", {})
+        if parity.get("normalized_exact_match") is not True:
+            fail("final deployment evidence does not prove source parity")
 
     print("PASS: SOLE preflight")
     if not args.final:
